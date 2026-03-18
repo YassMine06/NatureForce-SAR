@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body, #root {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    font-family: 'Inter', sans-serif;
+    background-color: #050810;
+  }
+
+  body {
+    color: #e2e8f0;
+    cursor: none;
+    user-select: none;
+  }
+}
+
+@layer components {
+  /* Custom Cursor */
+  .custom-cursor {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: #00d4ff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, background 0.2s ease, width 0.2s ease, height 0.2s ease;
+    mix-blend-mode: screen;
+  }
+
+  .cursor-trail {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid rgba(0, 212, 255, 0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, opacity 0.2s ease;
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-strong {
+    background: rgba(0, 212, 255, 0.04);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+  }
+
+  /* Neon glow utilities */
+  .glow-blue {
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.2), 0 0 80px rgba(0, 212, 255, 0.1);
+  }
+
+  .text-glow-blue {
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 40px rgba(0, 212, 255, 0.3);
+  }
+
+  .text-glow-orange {
+    text-shadow: 0 0 20px rgba(255, 107, 0, 0.8), 0 0 40px rgba(255, 107, 0, 0.3);
+  }
+
+  .text-neon-blue { color: #00d4ff; }
+  .text-neon-orange { color: #ff6b00; }
+
+  /* Neon line */
+  .neon-line {
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+  }
+
+  /* Stat bar */
+  .stat-bar-fill {
+    height: 100%;
+    border-radius: 9999px;
+    transition: width 1s ease;
+  }
+}
+
+/* Global HUD Flicker */
+@keyframes flicker {
+  0% { opacity: 0.97; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.98; }
+  15% { opacity: 0.94; }
+  25% { opacity: 0.98; }
+  30% { opacity: 0.96; }
+  100% { opacity: 0.98; }
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background: radial-gradient(circle at center, transparent 0%, rgba(5, 8, 16, 0.4) 100%);
+  animation: flicker 4s infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #050810;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.4);
+  border-radius: 2px;
+}
+
+/* Loading screen */
+@keyframes loader-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Hotspot pulse ring */
+@keyframes hotspot-ping {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.hotspot-ring {
+  animation: hotspot-ping 2s ease-out infinite;
+}
