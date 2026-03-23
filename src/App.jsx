@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { PresentationProvider, usePresentation } from './context/PresentationContext';
+import { LightboxProvider } from './context/LightboxContext';
 import LoadingScreen from './components/LoadingScreen';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
@@ -87,15 +88,17 @@ export default function App() {
   return (
     <BrowserRouter>
       <PresentationProvider>
-        <CustomCursor />
-        <HudOverlay />
-        {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
-        {loaded && (
-          <div className="relative w-screen h-screen bg-dark-900 text-slate-200 selection:bg-neon-blue/30 overflow-hidden">
-            <Navbar />
-            <AnimatedRoutes />
-          </div>
-        )}
+        <LightboxProvider>
+          <CustomCursor />
+          <HudOverlay />
+          {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
+          {loaded && (
+            <div className="relative w-screen h-screen bg-dark-900 text-slate-200 selection:bg-neon-blue/30 overflow-hidden">
+              <Navbar />
+              <AnimatedRoutes />
+            </div>
+          )}
+        </LightboxProvider>
       </PresentationProvider>
     </BrowserRouter>
   );

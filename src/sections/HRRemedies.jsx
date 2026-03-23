@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLightbox } from '../context/LightboxContext';
 import { hrRemedies } from '../data/squadData';
 
 export default function HRRemedies() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
+  const { showLightbox } = useLightbox();
   const remedy = hrRemedies[current];
 
   const next = () => { setDirection(1); setCurrent((c) => (c + 1) % hrRemedies.length); };
@@ -20,7 +22,7 @@ export default function HRRemedies() {
     <div className="flex flex-col items-center justify-center w-full h-full max-w-6xl py-4 overflow-hidden">
       {/* Header */}
       <motion.div className="text-center mb-10 shrink-0">
-        <p className="text-xs font-mono tracking-widest mb-2 text-[#c084fc] font-bold uppercase">SECTION 04</p>
+        <p className="text-xs font-mono tracking-widest mb-2 text-[#c084fc] font-bold uppercase">SECTION 04 : TACTICAL REMEDIES</p>
         <h2 className="text-4xl md:text-5xl font-display font-black text-white uppercase tracking-tighter">
           Tactical <span className="text-[#c084fc]">Remedies</span>
         </h2>
@@ -41,15 +43,26 @@ export default function HRRemedies() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.5, ease: "circOut" }}
-              className="glass-strong rounded-[2.5rem] p-8 md:p-10 text-center flex flex-col md:flex-row items-center gap-10 relative overflow-hidden w-full h-full max-h-[450px]"
+              className="glass-strong rounded-[2.5rem] p-8 md:p-10 text-center flex flex-col md:flex-row items-center gap-10 relative overflow-hidden w-full h-full min-h-[500px]"
               style={{ border: `1px solid ${remedy.color}20` }}
             >
               {/* Background HUD graphics */}
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
               
-              <div className="flex flex-col items-center shrink-0 w-full md:w-1/4">
-                <div className="text-7xl mb-4 group-hover:scale-110 transition-transform duration-500 filter drop-shadow-xl">{remedy.emoji}</div>
-                <h3 className="text-3xl font-display font-black opacity-90 text-center" style={{ color: remedy.color }}>{remedy.animal}</h3>
+              <div className="flex flex-col items-center shrink-0 w-full md:w-2/5">
+                <div 
+                  className="relative w-64 h-64 md:w-80 md:h-80 mb-6 group shrink-0 cursor-zoom-in"
+                  onClick={() => showLightbox(remedy.image)}
+                >
+                  <div className="absolute inset-0 rounded-3xl opacity-30 blur-2xl" style={{ background: remedy.color }} />
+                  <img 
+                    src={remedy.image} 
+                    alt={remedy.animal}
+                    className="relative w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl flex items-center justify-center text-xs text-white font-bold uppercase tracking-widest">VIEW FULLSCREEN</div>
+                </div>
+                <h3 className="text-4xl font-display font-black opacity-90 text-center leading-none" style={{ color: remedy.color, textShadow: `0 0 20px ${remedy.color}40` }}>{remedy.animal}</h3>
               </div>
 
               <div className="hidden md:block w-px h-1/2 bg-white/10 shrink-0" />

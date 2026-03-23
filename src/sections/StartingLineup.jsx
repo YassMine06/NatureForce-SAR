@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLightbox } from '../context/LightboxContext';
 import { animals } from '../data/squadData';
 
 const statColors = {
@@ -45,6 +46,7 @@ function StatBar({ label, value, color, index }) {
 export default function StartingLineup() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
+  const { showLightbox } = useLightbox();
   const animal = animals[current];
 
   const next = () => { setDirection(1); setCurrent((c) => (c + 1) % animals.length); };
@@ -57,10 +59,10 @@ export default function StartingLineup() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-4xl">
+    <div className="flex flex-col items-center justify-center w-full min-h-screen py-10 px-4">
       {/* Header */}
       <motion.div className="text-center mb-10">
-        <p className="text-xs font-mono tracking-widest mb-2 text-neon-blue">SECTION 01</p>
+        <p className="text-xs font-mono tracking-widest mb-2 text-neon-blue font-bold uppercase">SECTION 01 : LINEUP</p>
         <h2 className="text-4xl md:text-5xl font-display font-black text-white">
           Active <span className="text-neon-blue text-glow-blue">Lineup</span>
         </h2>
@@ -81,23 +83,37 @@ export default function StartingLineup() {
               animate="center"
               exit="exit"
               transition={{ type: "spring", stiffness: 200, damping: 25 }}
-              className="glass-strong rounded-[3rem] p-8 md:p-10 w-full max-w-5xl flex flex-col md:flex-row items-center gap-10 shadow-2xl overflow-hidden relative h-full max-h-[550px]"
+              className="glass-strong rounded-[3rem] p-8 md:p-14 w-full max-w-[1200px] flex flex-col md:flex-row items-center gap-12 shadow-2xl overflow-hidden relative min-h-[500px]"
               style={{ border: `1px solid ${animal.color}40` }}
             >
               {/* Background ambient glow */}
               <div className="absolute inset-0 pointer-events-none opacity-20" style={{ background: `radial-gradient(circle at 30% 50%, ${animal.color}, transparent 60%)` }} />
 
               {/* Left Side: Visual */}
-              <div className="flex flex-col items-center shrink-0 w-full md:w-1/3">
+              <div className="flex flex-col items-center shrink-0 w-full md:w-1/2">
                 <motion.div 
-                  className="text-9xl mb-6 filter drop-shadow-2xl select-none" 
-                  animate={{ y: [0, -15, 0] }} 
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="relative w-64 h-64 md:w-96 md:h-96 mb-8 group cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                  onClick={() => showLightbox(animal.image)}
                 >
-                  {animal.emoji}
+                  <motion.div 
+                    className="absolute inset-0 rounded-3xl opacity-40 blur-3xl transition-opacity group-hover:opacity-60"
+                    style={{ background: animal.color }}
+                  />
+                  <motion.img 
+                    src={animal.image} 
+                    alt={animal.name}
+                    className="relative w-full h-full object-cover rounded-3xl shadow-2xl border-4 border-white/10"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                  />
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl flex items-center justify-center">
+                    <span className="text-white font-mono text-sm tracking-widest bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm">VIEW FULLSCREEN</span>
+                  </div>
                 </motion.div>
-                <motion.h3 className="text-4xl font-display font-black mb-1 whitespace-nowrap" style={{ color: animal.color, textShadow: `0 0 20px ${animal.color}40` }}>{animal.name}</motion.h3>
-                <div className="px-4 py-1.5 rounded-full text-[10px] font-mono tracking-[0.2em] glass uppercase" style={{ color: animal.color, borderColor: `${animal.color}40` }}>{animal.role}</div>
+                <motion.h3 className="text-5xl font-display font-black mb-2 whitespace-nowrap" style={{ color: animal.color, textShadow: `0 0 20px ${animal.color}40` }}>{animal.name}</motion.h3>
+                <div className="px-6 py-2 rounded-full text-xs font-mono tracking-[0.3em] glass uppercase" style={{ color: animal.color, borderColor: `${animal.color}40` }}>{animal.role}</div>
               </div>
 
               {/* Divider (only on large screens) */}
@@ -121,7 +137,7 @@ export default function StartingLineup() {
       </div>
 
       {/* Progress Dots */}
-      <div className="flex items-center gap-3 mt-12">
+      <div className="flex items-center gap-3 mt-12 pb-10">
         {animals.map((_, i) => (
           <button key={i} onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i); }} className="h-1.5 transition-all duration-500 rounded-full" style={{ width: i === current ? '32px' : '8px', background: i === current ? animal.color : 'rgba(255,255,255,0.1)' }} data-cursor />
         ))}

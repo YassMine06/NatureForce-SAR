@@ -10,6 +10,7 @@ export const animals = [
     mission: "Navigates pitch-black voids using echolocation to locate air pockets & survivors.",
     stats: { speed: 85, detection: 98, strength: 20, mobility: 90 },
     workspace: "Echo-Chamber Ceiling",
+    image: "/image_an/bat.png",
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ export const animals = [
     mission: "Enters collapsed slabs no other member can reach. Immune to toxins and dust.",
     stats: { speed: 60, detection: 70, strength: 15, mobility: 95 },
     workspace: "Glass Conduit Tunnels",
+    image: "/image_an/Cockroach.jpeg",
   },
   {
     id: 3,
@@ -30,6 +32,7 @@ export const animals = [
     mission: "Lifts concrete beams and calms survivors with empathy-driven psychological triage.",
     stats: { speed: 30, detection: 65, strength: 100, mobility: 40 },
     workspace: "Reinforced Concrete Slabs",
+    image: "/image_an/elephant.jpeg",
   },
   {
     id: 4,
@@ -40,6 +43,7 @@ export const animals = [
     mission: "Searches flooded basements & tunnels using sonar to see through murky water.",
     stats: { speed: 80, detection: 92, strength: 50, mobility: 70 },
     workspace: "Triage Bay Water Tank",
+    image: "/image_an/dolphin.png",
   },
   {
     id: 5,
@@ -50,6 +54,7 @@ export const animals = [
     mission: "Climbs vertical and inverted rubble. Regenerates lost limbs to stay in the field.",
     stats: { speed: 25, detection: 55, strength: 40, mobility: 88 },
     workspace: "Rubble Surfaces",
+    image: "/image_an/starfish.jpeg",
   },
   {
     id: 6,
@@ -60,6 +65,7 @@ export const animals = [
     mission: "Manages information flow and coordinates the team to cover the grid efficiently.",
     stats: { speed: 90, detection: 88, strength: 60, mobility: 85 },
     workspace: "Command Center",
+    image: "/image_an/wolf.jpeg",
   },
   {
     id: 7,
@@ -70,6 +76,7 @@ export const animals = [
     mission: "Builds emergency wooden shoring to prevent further collapse of structures.",
     stats: { speed: 45, detection: 40, strength: 78, mobility: 55 },
     workspace: "Base of Rubble",
+    image: "/image_an/beaver.png",
   },
 ];
 
@@ -82,6 +89,7 @@ export const workspaceHotspots = [
     description: "Sound-dampening ceiling with roosting bars — zero noise interference.",
     position: { top: "8%", left: "50%" },
     color: "#00d4ff",
+    image: "/image_an/bat.png",
   },
   {
     id: "cockroach",
@@ -91,6 +99,7 @@ export const workspaceHotspots = [
     description: "Transparent micro-tunnels inside walls for instant room-to-room transit.",
     position: { top: "45%", left: "15%" },
     color: "#a3e635",
+    image: "/image_an/Cockroach.jpeg",
   },
   {
     id: "dolphin",
@@ -100,6 +109,7 @@ export const workspaceHotspots = [
     description: "10m deep filtered tank — vibration comms with the team.",
     position: { top: "55%", left: "75%" },
     color: "#38bdf8",
+    image: "/image_an/dolphin.png",
   },
   {
     id: "elephant",
@@ -109,6 +119,7 @@ export const workspaceHotspots = [
     description: "Slabs rated for 10,000 kg with rumble mats for low-frequency comms.",
     position: { top: "85%", left: "40%" },
     color: "#ff6b00",
+    image: "/image_an/elephant.jpeg",
   },
 ];
 
@@ -146,6 +157,7 @@ export const hrRemedies = [
     color: "#00d4ff",
     weakness: "Fragile wing membranes — easily torn by jagged rebar.",
     solution: "Kevlar Wing-Guards: ultra-light ballistic mesh over wings.",
+    image: "/image_an/bat.png",
   },
   {
     animal: "Cockroach",
@@ -153,6 +165,7 @@ export const hrRemedies = [
     color: "#a3e635",
     weakness: "Risk of being accidentally crushed by teammates.",
     solution: "LED Beacon Shells: adhesive tracker on back for digital map tracking.",
+    image: "/image_an/Cockroach.jpeg",
   },
   {
     animal: "Elephant",
@@ -160,6 +173,7 @@ export const hrRemedies = [
     color: "#ff6b00",
     weakness: "Massive caloric drain — requires hundreds of pounds of food daily.",
     solution: "On-Site Hydroponic Silo: 24/7 vertical farm for high-protein fuel.",
+    image: "/image_an/elephant.jpeg",
   },
   {
     animal: "Dolphin",
@@ -167,6 +181,7 @@ export const hrRemedies = [
     color: "#38bdf8",
     weakness: "Cannot navigate dry land or disconnected flooded zones.",
     solution: "Hydra-Suit Exoskeleton: moisture-locking suit with robotic flippers.",
+    image: "/image_an/dolphin.png",
   },
   {
     animal: "Starfish",
@@ -174,6 +189,7 @@ export const hrRemedies = [
     color: "#f9a8d4",
     weakness: "Slow over long distances, despite excellent climbing.",
     solution: "Rapid Deployment Drones: Bat or Owl carries Starfish to the triage point.",
+    image: "/image_an/starfish.jpeg",
   },
   {
     animal: "Wolf",
@@ -181,6 +197,7 @@ export const hrRemedies = [
     color: "#c084fc",
     weakness: "Sensory overload from high-frequency sirens and machinery.",
     solution: "Tactical Ear-Pro: noise-canceling headsets amplifying survivor heartbeats.",
+    image: "/image_an/wolf.jpeg",
   },
   {
     animal: "Beaver",
@@ -188,6 +205,7 @@ export const hrRemedies = [
     color: "#fb923c",
     weakness: "Dental wear from constant gnawing on heavy timber and debris.",
     solution: "Titanium Dental Caps: reinforced incisors for structural material cutting.",
+    image: "/image_an/beaver.png",
   },
 ];
 
@@ -196,6 +214,7 @@ export const futureExpansion = {
   emoji: "🦉",
   reason: "Silent long-range night vision from 500 feet. The ultimate Eye in the Sky.",
   advantage: "Spots heat signatures without helicopter noise — fills the Bat's long-range blind spot.",
+  image: "/image_an/owl.png",
 };
 
 export const doNotHire = {
@@ -203,4 +222,5 @@ export const doNotHire = {
   emoji: "🦥",
   speed: "0.27 km/h",
   reason: "Disaster response is a race against time. The Sloth cannot provide immediate triage and would physically block faster responders.",
+  image: "/image_an/sloth.png",
 };

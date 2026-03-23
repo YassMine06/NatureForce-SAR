@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLightbox } from '../context/LightboxContext';
 import { workspaceHotspots } from '../data/squadData';
 
 // Re-adjusting hotspots for the AI-generated architecture image
@@ -12,6 +13,7 @@ const updatedHotspots = [
 
 export default function Workspace() {
   const [activeHotspot, setActiveHotspot] = useState(null);
+  const { showLightbox } = useLightbox();
 
   return (
     <div className="w-full h-full max-w-[1400px] mx-auto flex flex-col md:flex-row items-center gap-10 py-4 overflow-hidden">
@@ -23,8 +25,8 @@ export default function Workspace() {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <p className="text-xs font-mono tracking-widest mb-2 text-neon-orange font-bold">
-          SECTION 02
+        <p className="text-xs font-mono tracking-widest mb-2 text-neon-orange font-bold uppercase">
+          SECTION 02 : WORKSPACE
         </p>
         <h2 className="text-5xl md:text-6xl font-display font-black text-white leading-none mb-6">
           The{' '}
@@ -51,9 +53,10 @@ export default function Workspace() {
 
       {/* Right Column: Building visualization (AI Image) */}
       <motion.div
-        className="relative flex-1 w-full h-full md:h-5/6 rounded-3xl overflow-hidden glass border border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.6)]"
+        className="relative flex-1 w-full h-full md:h-5/6 rounded-3xl overflow-hidden glass border border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.6)] cursor-zoom-in group/bg bg-dark-950"
+        onClick={() => showLightbox('/companie.jpeg')}
         style={{
-          backgroundImage: 'url(/workspace.png)',
+          backgroundImage: 'url(/companie.jpeg)',
           backgroundSize: 'contain',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
@@ -62,6 +65,9 @@ export default function Workspace() {
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
       >
+        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/bg:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+          <span className="text-white font-mono text-sm tracking-widest bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm">VIEW HQ FULLSCREEN</span>
+        </div>
         {/* HUD Overlay for workspace */}
         <div className="absolute inset-0 pointer-events-none border border-neon-orange/10 z-0">
           <div className="absolute top-6 left-6 font-mono text-[10px] text-neon-orange/40 flex flex-col gap-1">
@@ -71,7 +77,7 @@ export default function Workspace() {
             &lt; 15.342 N / 48.921 E &gt;
           </div>
         </div>
-
+ 
         {/* Hotspots */}
         {updatedHotspots.map((hs) => (
           <motion.button
@@ -93,17 +99,14 @@ export default function Workspace() {
               className="hotspot-ring absolute inset-0 rounded-full pointer-events-none"
               style={{ border: `2px solid ${hs.color}80` }}
             />
-            {/* Core dot */}
+            {/* Core dot - removed emoji */}
             <span
-              className="relative z-10 w-9 h-9 rounded-full flex items-center justify-center text-xl glass"
+              className="relative z-10 w-4 h-4 rounded-full flex items-center justify-center glass"
               style={{
-                background: `${hs.color}30`,
-                border: `1px solid ${hs.color}`,
-                boxShadow: `0 0 20px ${hs.color}60`,
+                background: `${hs.color}`,
+                boxShadow: `0 0 20px ${hs.color}`,
               }}
-            >
-              <span className="mb-0.5 pointer-events-none">{hs.emoji}</span>
-            </span>
+            />
           </motion.button>
         ))}
 
@@ -125,7 +128,18 @@ export default function Workspace() {
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             >
               <div className="flex items-center gap-4 mb-4">
-                <span className="text-4xl filter drop-shadow-md">{activeHotspot.emoji}</span>
+                <div 
+                  className="relative w-16 h-16 shrink-0 cursor-zoom-in group/thumb"
+                  onClick={(e) => { e.stopPropagation(); showLightbox(activeHotspot.image); }}
+                >
+                  <div className="absolute inset-0 rounded-xl opacity-20 blur-lg" style={{ background: activeHotspot.color }} />
+                  <img 
+                    src={activeHotspot.image} 
+                    alt={activeHotspot.animal}
+                    className="relative w-full h-full object-cover rounded-xl border border-white/10 shadow-lg"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/thumb:opacity-100 transition-opacity rounded-xl flex items-center justify-center text-[8px] text-white font-bold uppercase tracking-tighter">FULL</div>
+                </div>
                 <div>
                   <p className="font-display font-black text-xl text-white leading-none mb-1">{activeHotspot.animal}</p>
                   <p className="text-[10px] font-mono tracking-widest uppercase opacity-70" style={{ color: activeHotspot.color }}>

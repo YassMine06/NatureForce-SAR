@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
+import { useLightbox } from '../context/LightboxContext';
 import { doNotHire } from '../data/squadData';
 
 export default function DoNotHire() {
+  const { showLightbox } = useLightbox();
   return (
     <div className="relative flex flex-col items-center justify-center w-full h-full max-w-6xl py-4 overflow-hidden">
       {/* Background danger graphics */}
@@ -11,7 +13,7 @@ export default function DoNotHire() {
 
       {/* Header */}
       <motion.div className="text-center mb-10 relative z-10 shrink-0">
-        <p className="text-xs font-mono tracking-widest mb-2 text-red-500 font-bold uppercase tracking-[0.3em]">WARNING: BLACKLISTED_ENTITY</p>
+        <p className="text-xs font-mono tracking-widest mb-2 text-red-500 font-bold uppercase tracking-[0.2em]">SECTION 06 : BLACKLIST</p>
         <h2 className="text-4xl md:text-5xl font-display font-black text-white uppercase tracking-tighter">
           The <span className="text-red-500" style={{ textShadow: '0 0 25px rgba(255,26,26,0.8)' }}>Blacklist</span>
         </h2>
@@ -29,17 +31,27 @@ export default function DoNotHire() {
         {/* Left: Restricted Visual */}
         <div className="w-full md:w-1/2 flex flex-col items-center justify-center relative">
           <motion.div 
-            className="text-[12rem] filter grayscale opacity-60 brightness-50 contrast-125"
+            className="relative w-64 h-64 md:w-80 md:h-80 overflow-hidden rounded-[2rem] cursor-zoom-in group"
+            onClick={() => showLightbox(doNotHire.image)}
             animate={{ 
-              x: [-2, 2, -2],
-              filter: ["grayscale(1) brightness(0.5)", "grayscale(0.8) brightness(0.7)", "grayscale(1) brightness(0.5)"]
+              x: [-1, 1, -1],
+              filter: ["grayscale(1) brightness(0.5) contrast(1.2)", "grayscale(1) brightness(0.4) contrast(1.5)", "grayscale(1) brightness(0.5) contrast(1.2)"]
             }}
-            transition={{ duration: 0.2, repeat: Infinity, repeatType: "mirror" }}
+            transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
           >
-            🦥
+            <img 
+              src={doNotHire.image} 
+              alt={doNotHire.name}
+              className="w-full h-full object-cover transition-transform group-hover:scale-110"
+            />
+            {/* Red scanline/overlay */}
+            <div className="absolute inset-0 bg-red-900/40 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-600/10 to-transparent h-4 animate-scan" style={{ top: '-100%' }} />
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+               <span className="text-white font-mono text-[10px] tracking-widest bg-red-600/40 px-3 py-1 rounded-full backdrop-blur-sm">VIEW DATA</span>
+            </div>
           </motion.div>
-          <div className="absolute inset-0 bg-red-600/10 mix-blend-overlay" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-red-600/50 text-red-600 font-display font-black text-4xl px-6 py-2 rotate-[-15deg] uppercase tracking-widest pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-4 border-red-600/50 text-red-600 font-display font-black text-4xl px-6 py-2 rotate-[-15deg] uppercase tracking-widest pointer-events-none z-20">
             Terminated
           </div>
         </div>

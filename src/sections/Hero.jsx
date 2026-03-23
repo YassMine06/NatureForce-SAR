@@ -1,9 +1,11 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { useLightbox } from '../context/LightboxContext';
 
 export default function Hero() {
   const navigate = useNavigate();
+  const { showLightbox } = useLightbox();
   const heroRef = useRef(null);
   
   const { scrollY } = useScroll();
@@ -15,15 +17,20 @@ export default function Hero() {
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-3xl group">
       {/* Background image with parallax */}
       <motion.div
-        className="absolute inset-x-0 -top-20 -bottom-20 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
+        className="absolute inset-x-0 -top-20 -bottom-20 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105 cursor-zoom-in"
+        onClick={() => showLightbox('/background.png')}
         style={{ 
           backgroundImage: 'url(/background.png)',
           y: y1
         }}
-      />
+      >
+        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+          <span className="text-white font-mono text-sm tracking-widest bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm">VIEW BACKGROUND FULLSCREEN</span>
+        </div>
+      </motion.div>
 
       {/* Dark overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90 pointer-events-none" />
 
       {/* Grid overlay */}
       <div

@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
+import { useLightbox } from '../context/LightboxContext';
 import { futureExpansion } from '../data/squadData';
 
 export default function FutureExpansion() {
+  const { showLightbox } = useLightbox();
   return (
     <div className="relative flex flex-col items-center justify-center w-full h-full max-w-6xl py-4 overflow-hidden">
       {/* Background radial effects */}
@@ -17,7 +19,7 @@ export default function FutureExpansion() {
 
       {/* Header */}
       <motion.div className="text-center mb-10 relative z-10 shrink-0">
-        <p className="text-xs font-mono tracking-widest mb-1 text-neon-blue font-bold uppercase">SECTION 05</p>
+        <p className="text-xs font-mono tracking-widest mb-2 text-neon-blue font-bold uppercase">SECTION 05 : FUTURE EXPANSION</p>
         <h2 className="text-4xl md:text-5xl font-display font-black text-white leading-none uppercase tracking-tighter">
           Pipeline <span className="text-neon-blue text-glow-blue">Expansion</span>
         </h2>
@@ -35,14 +37,24 @@ export default function FutureExpansion() {
         {/* Left: Visual representation */}
         <div className="w-full md:w-1/2 flex justify-center relative select-none">
           <motion.div 
-            className="text-[12rem] filter drop-shadow-[0_0_30px_rgba(0,212,255,0.4)]"
+            className="relative w-64 h-64 md:w-80 md:h-80 cursor-zoom-in group"
+            onClick={() => showLightbox(futureExpansion.image)}
             animate={{ 
-              scale: [1, 1.05, 1],
-              rotate: [0, 2, -2, 0]
+              scale: [1, 1.02, 1],
+              y: [0, -10, 0]
             }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           >
-            🦉
+            {/* Ambient Spotlight/Glow */}
+            <div className="absolute inset-0 rounded-full bg-neon-blue/20 blur-[60px] animate-pulse" />
+            <img 
+              src={futureExpansion.image} 
+              alt={futureExpansion.name}
+              className="relative w-full h-full object-contain rounded-[2rem] shadow-[0_0_50px_rgba(0,212,255,0.4)] border border-white/20"
+            />
+            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-[2rem] flex items-center justify-center">
+              <span className="text-white font-mono text-[10px] tracking-widest bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">VIEW FULLSCREEN</span>
+            </div>
           </motion.div>
           {/* Scanning radar effect */}
           <motion.div 

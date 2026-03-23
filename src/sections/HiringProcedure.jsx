@@ -53,7 +53,7 @@ export default function HiringProcedure() {
     <div className="flex flex-col items-center justify-center w-full h-full max-w-6xl py-4 overflow-hidden">
       {/* Header */}
       <motion.div className="text-center mb-12 shrink-0">
-        <p className="text-xs font-mono tracking-widest mb-2 text-neon-blue font-bold uppercase">SECTION 03</p>
+        <p className="text-xs font-mono tracking-widest mb-2 text-neon-blue font-bold uppercase">SECTION 03 : HIRING PROCEDURE</p>
         <h2 className="text-4xl md:text-5xl font-display font-black text-white leading-none uppercase tracking-tighter">
           Onboarding <span className="text-neon-blue text-glow-blue">Protocol</span>
         </h2>
