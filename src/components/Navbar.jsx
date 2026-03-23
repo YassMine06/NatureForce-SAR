@@ -10,7 +10,6 @@ const navItems = [
   { label: 'HR', href: '/hr' },
   { label: 'Future', href: '/future' },
   { label: 'Blacklist', href: '/blacklist' },
-  { label: '3D Workspace', href: '/workspace3d' },
 ];
 
 export default function Navbar() {
