@@ -16,6 +16,7 @@ import HiringProcedure from './sections/HiringProcedure';
 import HRRemedies from './sections/HRRemedies';
 import FutureExpansion from './sections/FutureExpansion';
 import DoNotHire from './sections/DoNotHire';
+import Workspace3D from './sections/Workspace3D';
 
 const ROUTES = [
   '/',
@@ -25,6 +26,7 @@ const ROUTES = [
   '/hr',
   '/future',
   '/blacklist',
+  '/workspace3d',
 ];
 
 function AnimatedRoutes() {
@@ -63,6 +65,7 @@ function AnimatedRoutes() {
         <Route path="/hr" element={<PageTransition><HRRemedies /></PageTransition>} />
         <Route path="/future" element={<PageTransition><FutureExpansion /></PageTransition>} />
         <Route path="/blacklist" element={<PageTransition><DoNotHire /></PageTransition>} />
+        <Route path="/workspace3d" element={<Workspace3D />} />
       </Routes>
     </AnimatePresence>
   );
